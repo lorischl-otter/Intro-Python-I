@@ -18,15 +18,61 @@ and does the following:
    the format that your program expects arguments to be given.
    Then exit the program.
 
-Note: the user should provide argument input (in the initial call to run the file) and not 
-prompted input. Also, the brackets around year are to denote that the argument is
-optional, as this is a common convention in documentation.
+Note: the user should provide argument input (in the initial call to run the
+file) and not prompted input. Also, the brackets around year are to denote
+that the argument is optional, as this is a common convention in documentation.
 
-This would mean that from the command line you would call `python3 14_cal.py 4 2015` to 
-print out a calendar for April in 2015, but if you omit either the year or both values, 
-it should use today’s date to get the month and year.
+This would mean that from the command line you would call
+`python3 14_cal.py 4 2015` to print out a calendar for April in 2015,
+but if you omit either the year or both values, it should use today’s date
+to get the month and year.
 """
 
 import sys
 import calendar
 from datetime import datetime
+
+# # use sys.argv to create two optional command line arguments
+
+# def render_calendar(month=datetime.now().month, year=datetime.now().year):
+#   cal = calendar.HTMLCalendar()
+#   print(cal.formatmonth(year, month))
+#   # figure out how to make this render in terminal?
+#   # figure out how to ensure user input is in correct formatting
+
+# render_calendar()
+
+# ^^ beginning attempts made before covered in class
+
+# fetch command line arguments for this program
+num_args = len(sys.argv)
+
+# user didn't pass in any arguments:
+if num_args == 1:
+    # get current month / year
+    month = datetime.now().month
+    year = datetime.now().year
+
+# user passed in one argument:
+elif num_args == 2:
+    # render cal for specified month and current year
+    year = datetime.now().year
+    month = int(sys.argv[1])
+
+
+# user passed in two arguments:
+elif num_args == 3:
+    # render call for specified month and year
+    year = int(sys.argv[2])
+    month = int(sys.argv[1])
+
+# user passed in something else
+else:
+    # print a usage statement
+    print("usage: 14_cal.py [month] [year]")
+    # exit program -- 1 by convention indicates something incorrect happened
+    # status of 0 conventionally indicates success
+    sys.exit(1)
+
+cal = calendar.TextCalendar()
+cal.prmonth(year, month)
