@@ -22,8 +22,11 @@ print(f.closed)
 # then close the file. Open up "bar.txt" and inspect it to make
 # sure that it contains what you expect it to contain
 
+
 with open('bar.txt', 'w') as f:
-    f.write('Hello!\nHow are you\ntoday?')
+    for _ in range(3):
+        line = input("Give me a line to write to this file: ")
+        f.write(line + "\n")
 
 with open('bar.txt') as f:
     read_data = f.read()
