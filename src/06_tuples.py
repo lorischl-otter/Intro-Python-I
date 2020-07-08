@@ -13,6 +13,8 @@ data that does not need to be changed. Tuples enforce immutability
 automatically.
 """
 
+# Tuples are 1-indexed
+
 # Example:
 
 import math
